@@ -1,0 +1,12 @@
+@import './base.css';
+@font-face {
+  font-family: 'hellofont';  /* Project id 1902050 */
+  src: url('./fonts/HelloFont_ID_XiaLeTi8183519713123125343.1b2e233ba08c8b2043f3f558c8373e7c.woff') format('woff')
+}
+@font-face {
+  font-family: 'subset';  /* Project id 1902050 */
+  src: url('./fonts/subset.woff') format('woff')
+}
+#app {
+  margin: 0 auto;
+}
