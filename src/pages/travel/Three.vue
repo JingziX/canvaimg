@@ -2,7 +2,7 @@
  * @Author: jingzi 1163478123@qq.com
  * @Date: 2025-04-01 20:11:58
  * @LastEditors: jingzi 1163478123@qq.com
- * @LastEditTime: 2025-04-07 23:24:26
+ * @LastEditTime: 2025-04-07 23:27:05
  * @Description: 三张图片
  * Copyright (c) 2025 by ${git_name}, All Rights Reserved.
 -->
@@ -23,7 +23,6 @@
 </template>
 <script>
 import { ref } from 'vue'
-import html2canvas from 'html2canvas'
 import defaultImg from '@/assets/images/default.svg'
 import Title from '@/components/Title.vue'
 import Opera from '@/components/Opera.vue'

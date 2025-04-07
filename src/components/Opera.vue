@@ -2,7 +2,7 @@
  * @Author: jingzi 1163478123@qq.com
  * @Date: 2025-04-01 20:11:58
  * @LastEditors: jingzi 1163478123@qq.com
- * @LastEditTime: 2025-04-07 22:51:52
+ * @LastEditTime: 2025-04-07 23:27:26
  * @Description: 操作功能组件
  * Copyright (c) 2025 by ${git_name}, All Rights Reserved.
 -->
@@ -19,7 +19,7 @@
 </template>
 
 <script setup>
-import { ref, toRefs } from 'vue'
+import { toRefs } from 'vue'
 import html2canvas from 'html2canvas'
 
 const props = defineProps({
