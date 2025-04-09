@@ -2,7 +2,7 @@
  * @Author: jingzi 1163478123@qq.com
  * @Date: 2025-04-01 20:11:58
  * @LastEditors: jingzi 1163478123@qq.com
- * @LastEditTime: 2025-04-07 23:27:26
+ * @LastEditTime: 2025-04-09 09:11:28
  * @Description: 操作功能组件
  * Copyright (c) 2025 by ${git_name}, All Rights Reserved.
 -->
@@ -19,18 +19,10 @@
 </template>
 
 <script setup>
-import { toRefs } from 'vue'
+import { ref, toRefs } from 'vue'
 import html2canvas from 'html2canvas'
 
 const props = defineProps({
-  widthData: {
-    type: String,
-    required: true,
-  },
-  heightData: {
-    type: String,
-    required: true,
-  },
   title: {
     type: String,
     required: false
@@ -42,8 +34,10 @@ const props = defineProps({
 })
 
 const emit = defineEmits(['upload-complete'])
-const { widthData, heightData, title, date } = toRefs(props)
+const { title, date } = toRefs(props)
 
+const widthData = ref(0)
+    const heightData = ref(0)
 const uploadFiles = (e) => {
   const files = e.target.files;
   const list = []
@@ -74,6 +68,13 @@ const uploadFiles = (e) => {
       reader.readAsDataURL(files[i]);
     }
   }
+  const element = document.querySelector('.travel-container')
+  if (!element) {
+    throw new Error('找不到要导出的元素')
+  }
+  
+  widthData.value = element.offsetWidth
+  heightData.value = element.offsetHeight
 }
 const extractDate = (str) => {
   const regex = /于(\d{4})年(\d{1,2})月(\d{1,2})日/
@@ -94,9 +95,6 @@ const handleExport = async () => {
     if (!element) {
       throw new Error('找不到要导出的元素')
     }
-    
-    widthData.value = element.offsetWidth
-    heightData.value = element.offsetHeight
     const options = {
       scale: 2,
       useCORS: true,

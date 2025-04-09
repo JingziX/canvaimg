@@ -2,19 +2,20 @@
  * @Author: jingzi 1163478123@qq.com
  * @Date: 2025-04-01 20:11:58
  * @LastEditors: jingzi 1163478123@qq.com
- * @LastEditTime: 2025-04-09 09:25:03
+ * @LastEditTime: 2025-04-09 09:26:27
  * @Description: 三张图片
  * Copyright (c) 2025 by ${git_name}, All Rights Reserved.
 -->
 <template>
   <Opera :title="imgTitle" :date="imgDate" @upload-complete="handleUploadComplete" />
-  <div class="travel-container">
+  <div class="travel-container" :style="{ backgroundImage: `url(${bgImg})` }">
+    <input type="file" @change="handleBgChange" />
+    <Title @update:title="handleTitleUpdate" @update:date="handleDateUpdate" />
     <div class="travel-content">
       <div class="travel-item" v-for="(item, index) in list">
         <div class="image-container">
           <img v-image-error :src="item.img" alt="上传图片"
             :style="{ transform: `rotate(${item.rotation}deg) scale(${item.scale}) translate(${item.x}px, ${item.y}px)` }" />
-
           <OperaImg :item="item" />
         </div>
       </div>
@@ -26,7 +27,7 @@ import { ref } from 'vue'
 import Title from '@/components/Title.vue'
 import Opera from '@/components/Opera.vue'
 import OperaImg from '@/components/OperaImg.vue'
-const initList = new Array(9).fill({ img: '', rotation: 0, scale: 1, x: 0, y: 0, width: 0, height: 0 })
+const initList = new Array(4).fill({ img: '', rotation: 0, scale: 1, x: 0, y: 0, width: 0, height: 0 })
 export default {
   name: 'App',
   components: {
@@ -38,6 +39,7 @@ export default {
     const list = ref(initList)
     const imgTitle = ref('')
     const imgDate = ref('')
+    const bgImg = ref('')
     const handleUploadComplete = (uploadedList) => {
       // 更新 list 数组
       list.value = list.value.map((item, index) => {
@@ -50,11 +52,27 @@ export default {
         return item
       })
     }
+    const handleTitleUpdate = (title) => {
+      imgTitle.value = title
+    }
+    const handleDateUpdate = (date) => {
+      imgDate.value = date
+    }
+    const handleBgChange = (event) => {
+      const file = event.target.files[0]
+      if (file) {
+        bgImg.value = URL.createObjectURL(file)
+      }
+    }
     return {
       list,
       imgTitle,
       imgDate,
-      handleUploadComplete
+      bgImg,
+      handleUploadComplete,
+      handleTitleUpdate,
+      handleDateUpdate,
+      handleBgChange
     }
   }
 }
@@ -74,12 +92,12 @@ export default {
   align-items: center;
   justify-content: space-between;
   padding: 8px;
-  margin: 0 auto;
+  margin: 0 60px;
 }
 
 .travel-item {
-  width: 445px;
-  height: 280px;
+  width: 500px;
+  height: 500px;
   margin: 8px;
   overflow: hidden;
   position: relative;
@@ -109,10 +127,18 @@ export default {
 }
 
 .image-container img {
-  width: 100%;
-  height: auto;
+  width: auto;
+  height: 100%;
   transition: transform 0.3s ease;
   cursor: move;
   user-select: none;
+}
+
+.operation-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px;
+  background: #f9dac3;
 }
 </style>

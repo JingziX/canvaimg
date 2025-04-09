@@ -2,12 +2,12 @@
  * @Author: jingzi 1163478123@qq.com
  * @Date: 2025-04-01 20:11:58
  * @LastEditors: jingzi 1163478123@qq.com
- * @LastEditTime: 2025-04-07 23:26:56
+ * @LastEditTime: 2025-04-09 09:24:42
  * @Description: 文件描述
  * Copyright (c) 2025 by ${git_name}, All Rights Reserved.
 -->
 <template>
-  <Opera :widthData="widthData" :heightData="heightData" :title="imgTitle" :date="imgDate" @upload-complete="handleUploadComplete" />
+  <Opera :title="imgTitle" :date="imgDate" @upload-complete="handleUploadComplete" />
   
   <div class="travel-container">
     <div class="travel-content">
@@ -16,7 +16,7 @@
           <img
             :src="item.img"
             alt="上传图片"
-            @error="handleImageError($event)"
+            v-image-error
             :style="{ transform: `rotate(${item.rotation}deg) scale(${item.scale}) translate(${item.x}px, ${item.y}px)` }"
           />
           <OperaImg :item="item" />
@@ -28,7 +28,6 @@
 </template>
 <script>
 import { ref } from 'vue'
-import defaultImg from '@/assets/images/default.svg'
 import Title from '@/components/Title.vue'
 import Opera from '@/components/Opera.vue'
 import OperaImg from '@/components/OperaImg.vue'
@@ -44,13 +43,6 @@ export default {
     const list = ref(initList)
     const imgTitle = ref('')
     const imgDate = ref('')
-    const widthData = ref(0)
-    const heightData = ref(0)
-    const titleInput = ref(false)
-    const dateInput = ref(false)
-    const handleImageError = (event) => {
-      event.target.src = defaultImg
-    }
     const handleUploadComplete = (uploadedList) => {
       // 更新 list 数组
       list.value = list.value.map((item, index) => {
@@ -73,11 +65,6 @@ export default {
       list,
       imgTitle,
       imgDate,
-      widthData,
-      heightData,
-      titleInput,
-      dateInput,
-      handleImageError,
       handleUploadComplete,
       handleTitleUpdate,
       handleDateUpdate
