@@ -2,7 +2,7 @@
  * @Author: jingzi 1163478123@qq.com
  * @Date: 2025-04-01 20:11:58
  * @LastEditors: jingzi 1163478123@qq.com
- * @LastEditTime: 2025-04-09 09:26:27
+ * @LastEditTime: 2025-04-10 09:12:50
  * @Description: 三张图片
  * Copyright (c) 2025 by ${git_name}, All Rights Reserved.
 -->
@@ -16,7 +16,7 @@
         <div class="image-container">
           <img v-image-error :src="item.img" alt="上传图片"
             :style="{ transform: `rotate(${item.rotation}deg) scale(${item.scale}) translate(${item.x}px, ${item.y}px)` }" />
-          <OperaImg :item="item" />
+          <OperaImg :item="item" @update:item="handleItemUpdate" />
         </div>
       </div>
     </div>
@@ -64,6 +64,9 @@ export default {
         bgImg.value = URL.createObjectURL(file)
       }
     }
+    const handleItemUpdate = (updatedItem) => {
+      list.value = list.value.map(item => item.id === updatedItem.id ? updatedItem : item)
+    }
     return {
       list,
       imgTitle,
@@ -72,7 +75,8 @@ export default {
       handleUploadComplete,
       handleTitleUpdate,
       handleDateUpdate,
-      handleBgChange
+      handleBgChange,
+      handleItemUpdate
     }
   }
 }

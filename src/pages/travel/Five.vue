@@ -2,7 +2,7 @@
  * @Author: jingzi 1163478123@qq.com
  * @Date: 2025-04-01 20:11:58
  * @LastEditors: jingzi 1163478123@qq.com
- * @LastEditTime: 2025-04-09 09:23:50
+ * @LastEditTime: 2025-04-10 09:19:03
  * @Description: 三张图片
  * Copyright (c) 2025 by ${git_name}, All Rights Reserved.
 -->
@@ -16,7 +16,7 @@
           <img v-image-error :src="item.img" alt="上传图片"
             :style="{ transform: `rotate(${item.rotation}deg) scale(${item.scale}) translate(${item.x}px, ${item.y}px)` }" />
 
-          <OperaImg :item="item" />
+          <OperaImg :item="item" :index="index" @update:item="handleItemUpdate" />
         </div>
       </div>
     </div>
@@ -58,13 +58,19 @@ export default {
     const handleDateUpdate = (date) => {
       imgDate.value = date
     }
+    const handleItemUpdate = (updatedItem) => {
+      const newlist = list.value
+      newlist[updatedItem.index] = updatedItem
+      list.value = newlist
+    }
     return {
       list,
       imgTitle,
       imgDate,
       handleUploadComplete,
       handleTitleUpdate,
-      handleDateUpdate
+      handleDateUpdate,
+      handleItemUpdate
     }
   }
 }

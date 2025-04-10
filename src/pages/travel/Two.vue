@@ -2,7 +2,7 @@
  * @Author: jingzi 1163478123@qq.com
  * @Date: 2025-04-01 20:11:58
  * @LastEditors: jingzi 1163478123@qq.com
- * @LastEditTime: 2025-04-09 09:25:41
+ * @LastEditTime: 2025-04-09 20:12:26
  * @Description: 文件描述
  * Copyright (c) 2025 by ${git_name}, All Rights Reserved.
 -->
@@ -28,8 +28,8 @@
         <div class="image-container">
           <img
             :src="item.img"
-            alt="上传图片"
-            @error="handleImageError($event)"
+            alt="上传图片"        
+            v-image-error
             :style="{ transform: `rotate(${item.rotation}deg) scale(${item.scale}) translate(${item.x}px, ${item.y}px)` }"
           />
           <OperaImg :item="item" />
